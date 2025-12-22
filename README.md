@@ -1,43 +1,47 @@
-# GP2MIDI
+# GP2MIDI Pro
 
-GP2MIDI is a powerful tool designed to convert Guitar Pro files (`.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp`) into standard MIDI files (`.mid`). It features a modern web interface for easy file uploads and conversion, as well as a robust backend API and command-line utilities for advanced usage.
+![GP2MIDI Logo](https://placehold.co/600x200?text=GP2MIDI+Pro)
 
-## Features
+> **Studio-Grade Guitar Pro to MIDI Converter**
+>
+> effortlessly convert your `.gp` files into high-fidelity MIDI sequences ready for your DAW.
 
-- **Wide Format Support**: Handles legacy binary formats (`.gp3`, `.gp4`, `.gp5`) and modern XML-based formats (`.gpx`, `.gp`).
-- **Web Interface**: User-friendly React-based frontend for drag-and-drop conversion.
-- **High Fidelity**: Preserves track details, tempo changes, and time signatures during conversion.
-- **REST API**: FastAPI-powered backend for integrating conversion capabilities into other applications.
-- **CLI Utility**: Dedicated script for batch processing or manual conversions.
-- **One-Click Startup**: convenient PowerShell launcher script.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
+![React](https://img.shields.io/badge/frontend-React-61dafb.svg)
+![Status](https://img.shields.io/badge/status-stable-green.svg)
 
-## Project Structure
+---
 
-```
-gp2midi/
-├── backend/                # Python FastAPI backend
-│   ├── converter/          # MIDI generation logic
-│   ├── models/             # Data models
-│   ├── parser/             # Guitar Pro file parsers (Binary & XML)
-│   ├── convert_file.py     # CLI conversion script
-│   └── main.py             # API entry point
-├── frontend/               # React Vite frontend
-│   ├── src/                # UI source code
-│   └── package.json        # Frontend dependencies
-├── start_app.ps1           # One-click startup script (Windows)
-└── debug_*.py              # Debugging utilities
-```
+**GP2MIDI Pro** is a modern, full-stack application designed to bridge the gap between tablature and production. Unlike basic converters, GP2MIDI preserves the nuance of your guitar tracks—handling bends, slides, and multiple voices with a proprietary "High Fidelity" mode that maps strings to separate MIDI channels for maximum expressiveness (MPE-ready).
 
-## Prerequisites
+## ✨ Key Features
 
-- **Python 3.8+**
-- **Node.js 14+** (for Frontend)
+- **🚀 Universal Format Support**: Reads everything from legacy Guitar Pro 3/4/5 (`.gp3`, `.gp4`, `.gp5`) to modern XML-based formats (`.gpx`, `.gp`).
+- **🎛️ High Fidelity Mode**: Intelligent channel allocation separates guitar strings onto distinct MIDI channels, preserving polyphonic bends and articulations.
+- **⚡ Modern Web Interface**: specialized Drag-and-Drop UI built with React, featuring real-time conversion status.
+- **🔌 REST API**: Robust FastAPI backend for integrating conversion logic into larger pipelines.
+- **🛠️ Developer Ready**: Fully typed codebase with linting (Ruff/ESLint), tests (Pytest), and modular architecture.
 
-## Installation
+## 🏗️ Architecture
+
+The project is split into two main components:
+
+- **Backend (`/backend`)**: A Python FastAPI application that handles the complex parsing (Binary & XML) and MIDI generation.
+- **Frontend (`/frontend`)**: A React (Vite) application providing a polished user experience.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Python 3.9+**
+- **Node.js 16+** (for Frontend)
+
+### 📥 Installation
 
 1.  **Clone the repository**:
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/yourusername/gp2midi.git
     cd gp2midi
     ```
 
@@ -49,65 +53,81 @@ gp2midi/
 
 3.  **Frontend Setup**:
     ```bash
-    cd frontend
+    cd ../frontend
     npm install
     ```
 
-## Usage
+### ⚡ Quick Start (Windows)
 
-### Quick Start (Windows)
-
-Simply run the startup script:
+We provide a one-click PowerShell script to launch both services instantly:
 
 ```powershell
-.\start_app.ps1
+.\scripts\start_app.ps1
 ```
 
-This will automatically:
-1.  Start the Backend server (listening on port 8000).
-2.  Start the Frontend development server.
-3.  Open necessary terminal windows.
+*This will open two terminal windows (one for Backend, one for Frontend) and launch the app.*
 
-### Manual Start
+### 🛠️ Manual Start
 
-**Backend:**
+If you prefer to run services manually:
+
+**1. Start Backend:**
 ```bash
 cd backend
 python -m uvicorn main:app --reload --port 8000
 ```
-API Docs will be available at: `http://localhost:8000/docs`
+*API Docs available at: [http://localhost:8000/docs](http://localhost:8000/docs)*
 
-**Frontend:**
+**2. Start Frontend:**
 ```bash
 cd frontend
 npm run dev
 ```
+*Access UI at: `http://localhost:5173`*
 
-### CLI Conversion
+## 🧪 Development & Testing
 
-You can act as a standard CLI tool for direct file conversion:
+We maintain high code quality standards. Run the following commands to verify your environment.
 
-```bash
-cd backend
-python convert_file.py
-```
-*Note: You may need to edit `convert_file.py` to specify input/output paths or pass them as arguments if implemented.*
+### Backend
+- **Linting**: `cd backend && python -m ruff check .`
+- **Testing**: `cd backend && python -m pytest tests/`
 
-## API Documentation
+### Frontend
+- **Linting**: `cd frontend && npm run lint`
+- **Formatting**: `cd frontend && npm run format`
+
+## 📚 API Reference
 
 ### `POST /convert`
 
-Upload a Guitar Pro file to convert it to MIDI.
+Uploads a file for conversion.
 
-- **Parameters**: 
-  - `file`: The Guitar Pro file (Multipart/Form-Data).
-  - `high_fidelity`: `boolean` (default: `true`).
-- **Response**: Returns the converted `.mid` file stream.
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `file` | `File` | Required | The Guitar Pro file (`.gp*`) |
+| `high_fidelity` | `bool` | `true` | Enable MPE-style channel separation |
 
-## Contributing
+**Example w/ cURL:**
+```bash
+curl -X POST "http://localhost:8000/convert?high_fidelity=true" \
+  -F "file=@mysong.gp" \
+  --output mysong.mid
+```
 
-Contributions are welcome! Please submit a Pull Request or open an Issue to discuss improvements or bug fixes.
+## 🤝 Contributing
 
-## License
+Contributions are welcome! Please follow these steps:
+1. Fork the repo.
+2. Create a feature branch (`git checkout -b feature/amazing-feature`).
+3. Commit your changes.
+4. Push to the branch.
+5. Open a Pull Request.
 
-[MIT](LICENSE)
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+*Made with ❤️ for musicians and coders.*

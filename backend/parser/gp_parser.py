@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
+
 from models.song_model import Song
+
 
 class GPParser(ABC):
     @abstractmethod

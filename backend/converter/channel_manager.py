@@ -1,18 +1,25 @@
-from typing import List, Set, Dict
+from typing import Dict, List, Set
+
 
 class ChannelManager:
     """
     Manages allocation of MIDI channels (0-15).
     Channel 9 (index, so 10 in 1-based) is reserved for Percussion.
     """
+
     PERCUSSION_CHANNEL = 9
-    
+
     def __init__(self):
         self.used_channels: Set[int] = {self.PERCUSSION_CHANNEL}
-        self.track_channel_map: Dict[int, List[int]] = {} # Track ID -> List of Channels
+        self.track_channel_map: Dict[
+            int, List[int]
+        ] = {}  # Track ID -> List of Channels
 
     def allocate_channel(self, track_id: int, count: int = 1) -> List[int]:
-        print(f"Allocating {count} channels for track {track_id}. Used: {self.used_channels}")
+        print(
+            f"Allocating {count} channels for track {track_id}. "
+            f"Used: {self.used_channels}"
+        )
         allocated = []
         for ch in range(16):
             if ch == self.PERCUSSION_CHANNEL:
@@ -24,13 +31,13 @@ class ChannelManager:
                     break
         print(f"Result: {allocated}")
 
-        
         # If we ran out of channels, we might need to reuse or share.
         # For now, simplistic fallback: Reuse the last allocated or channel 0.
-        # In a real "World Class" app, we would implement virtual ports or port switching.
+        # In a real "World Class" app, we would implement virtual ports or
+        # port switching.
         if len(allocated) < count:
-             # Basic fallback: reuse existing or just warn
-             pass
+            # Basic fallback: reuse existing or just warn
+            pass
 
         self.track_channel_map[track_id] = allocated
         return allocated

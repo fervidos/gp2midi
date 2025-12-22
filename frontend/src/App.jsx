@@ -5,7 +5,6 @@ import DropZone from './components/DropZone';
 import './App.css';
 
 function App() {
-  const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [convertedUrl, setConvertedUrl] = useState(null);
@@ -13,7 +12,6 @@ function App() {
   const [highFi, setHighFi] = useState(true);
 
   const handleFileSelected = (selectedFile) => {
-    setFile(selectedFile);
     setError(null);
     convertFile(selectedFile);
   };
@@ -46,7 +44,6 @@ function App() {
   };
 
   const reset = () => {
-    setFile(null);
     setConvertedUrl(null);
     setError(null);
   };
