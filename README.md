@@ -11,6 +11,8 @@
 ![React](https://img.shields.io/badge/frontend-React-61dafb.svg)
 ![Status](https://img.shields.io/badge/status-stable-green.svg)
 
+## 🎮 [Try it out Live](https://gp2midi.vercel.app/)
+
 ---
 
 **GP2MIDI Pro** is a modern, full-stack application designed to bridge the gap between tablature and production. Unlike basic converters, GP2MIDI preserves the nuance of your guitar tracks—handling bends, slides, and multiple voices with a proprietary "High Fidelity" mode that maps strings to separate MIDI channels for maximum expressiveness (MPE-ready).
