@@ -1,6 +1,6 @@
 # GP2MIDI Pro
 
-![GP2MIDI Logo](https://placehold.co/600x200?text=GP2MIDI+Pro)
+[![GP2MIDI Pro](https://image.thum.io/get/width/1200/crop/600/https://gp2midi.vercel.app/)](https://gp2midi.vercel.app/)
 
 > **Studio-Grade Guitar Pro to MIDI Converter**
 >
