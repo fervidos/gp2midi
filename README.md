@@ -41,7 +41,7 @@ The project is split into two main components:
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/gp2midi.git
+    git clone https://github.com/fervidos/gp2midi.git
     cd gp2midi
     ```
 
