@@ -115,6 +115,17 @@ curl -X POST "http://localhost:8000/convert?high_fidelity=true" \
   --output mysong.mid
 ```
 
+## ☁️ Deployment (Vercel)
+
+The project is pre-configured for **Vercel** deployment.
+
+1.  Push your code to GitHub.
+2.  Import project in Vercel.
+3.  **Important**: In "Build & Development Settings", set **Output Directory** to: `frontend/dist`.
+4.  Deploy! 🚀
+
+The included `vercel.json` handles the routing between the Python backend (serverless) and the React frontend.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
