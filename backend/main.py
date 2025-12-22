@@ -69,18 +69,13 @@ async def convert_file(file: UploadFile = File(...), high_fidelity: bool = True)
         logger.info("Converting to MIDI...")
         writer = MidiWriter(song, high_fidelity=high_fidelity)
 
-        # Write to temporary file
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".mid") as tmp:
-            tmp_path = tmp.name
-
-        logger.info(f"Writing MIDI to temporary file: {tmp_path}")
-        writer.write(tmp_path)
-
-        # Read back
-        with open(tmp_path, "rb") as f:
-            midi_content = f.read()
-
-        os.unlink(tmp_path)
+        # Write to in-memory buffer
+        midi_buffer = io.BytesIO()
+        writer.write(file=midi_buffer)
+        midi_buffer.seek(0)
+        
+        midi_content = midi_buffer.getvalue()
+        logger.info(f"MIDI generated in memory. Size: {len(midi_content)} bytes")
         logger.info("MIDI file created and cleaned up. Returning response.")
 
         return StreamingResponse(

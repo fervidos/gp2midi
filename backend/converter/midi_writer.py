@@ -11,7 +11,7 @@ class MidiWriter:
         self.midi_file = mido.MidiFile(ticks_per_beat=960)  # Standard high resolution
         self.channel_manager = ChannelManager()
 
-    def write(self, output_path: str):
+    def write(self, output_path=None, file=None):
         # Create Tempo Track
         tempo_track = mido.MidiTrack()
         self.midi_file.tracks.append(tempo_track)
@@ -24,7 +24,12 @@ class MidiWriter:
             midi_track = self._process_track(track)
             self.midi_file.tracks.append(midi_track)
 
-        self.midi_file.save(output_path)
+        if file:
+            self.midi_file.save(file=file)
+        elif output_path:
+            self.midi_file.save(filename=output_path)
+        else:
+            raise ValueError("Either output_path or file must be provided")
 
     def _process_track(self, track: Track) -> mido.MidiTrack:
         midi_track = mido.MidiTrack()
