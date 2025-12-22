@@ -1,0 +1,58 @@
+.drop-zone {
+    border: 2px dashed var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: 60px 20px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    background: rgba(30, 41, 59, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+    border-color: var(--accent-primary);
+    background: rgba(16, 185, 129, 0.05);
+    /* Emerald tint */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+.drop-zone h3 {
+    margin: 16px 0 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.drop-zone .subtext {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.icon-wrapper {
+    transition: transform 0.3s ease;
+}
+
+.drop-zone:hover .icon-wrapper {
+    transform: scale(1.1);
+}
+
+.error-badge {
+    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.drop-zone.disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
