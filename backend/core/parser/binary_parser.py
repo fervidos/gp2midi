@@ -1,4 +1,4 @@
-from backend.parser.gp_parser import GPParser
+from backend.core.parser.gp_parser import GPParser
 
 import guitarpro
 

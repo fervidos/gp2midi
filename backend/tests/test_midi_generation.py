@@ -5,7 +5,7 @@ import sys
 # Add project root directory to path so we can import 'backend' package
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 
-from backend.converter.midi_writer import MidiWriter
+from backend.core.converter.midi_writer import MidiWriter
 from backend.models.song_model import (
     Beat,
     EffectType,
@@ -28,6 +28,8 @@ def test_midi_generation():
         number=1,
         name="Distortion Guitar",
         program=30,
+        bank_msb=121, # Test Bank
+        bank_lsb=0,
         channel=0,
         tuning=[40, 45, 50, 55, 59, 64],
     )

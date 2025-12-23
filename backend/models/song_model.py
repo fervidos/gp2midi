@@ -67,6 +67,8 @@ class Track(BaseModel):
     is_percussion: bool = False
     channel: int  # 0-15
     program: int  # MIDI Program Change (0-127)
+    bank_msb: Optional[int] = None  # CC 0
+    bank_lsb: Optional[int] = None  # CC 32
     tuning: List[int] = []  # String MIDI numbers, low to high
     measures: List[Measure] = []
 

@@ -2,7 +2,10 @@ import io
 import unittest
 import xml.etree.ElementTree as ET
 import zipfile
-from parser.xml_parser import XmlParser
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+from backend.core.parser.xml_parser import XmlParser
 
 
 class TestXmlParserNamespaces(unittest.TestCase):

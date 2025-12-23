@@ -16,31 +16,39 @@ class ChannelManager:
         ] = {}  # Track ID -> List of Channels
 
     def allocate_channel(self, track_id: int, count: int = 1) -> List[int]:
-        print(
-            f"Allocating {count} channels for track {track_id}. "
-            f"Used: {self.used_channels}"
-        )
+        # Try to allocate desired count
+        allocated = self._try_allocate(count)
+        
+        # If failed and count > 1 (e.g. High Fidelity), try fallback to 1
+        if not allocated and count > 1:
+            print(f"Track {track_id}: Failed to allocate {count} channels. Falling back to Standard (1).")
+            allocated = self._try_allocate(1)
+
+        # If still failed (out of channels entirely), fallback to channel 0 (sharing)
+        if not allocated:
+            print(f"Track {track_id}: OUT OF CHANNELS. Sharing Channel 0.")
+            allocated = [0] 
+
+        self.track_channel_map[track_id] = allocated
+        return allocated
+
+    def _try_allocate(self, count: int) -> List[int]:
         allocated = []
+        # Find contiguous or available block? Just available is fine for now.
+        temp_allocation = []
         for ch in range(16):
             if ch == self.PERCUSSION_CHANNEL:
                 continue
             if ch not in self.used_channels:
-                self.used_channels.add(ch)
-                allocated.append(ch)
-                if len(allocated) == count:
+                temp_allocation.append(ch)
+                if len(temp_allocation) == count:
                     break
-        print(f"Result: {allocated}")
-
-        # If we ran out of channels, we might need to reuse or share.
-        # For now, simplistic fallback: Reuse the last allocated or channel 0.
-        # In a real "World Class" app, we would implement virtual ports or
-        # port switching.
-        if len(allocated) < count:
-            # Basic fallback: reuse existing or just warn
-            pass
-
-        self.track_channel_map[track_id] = allocated
-        return allocated
+        
+        if len(temp_allocation) == count:
+            for ch in temp_allocation:
+                self.used_channels.add(ch)
+            return temp_allocation
+        return []
 
     def get_channels(self, track_id: int) -> List[int]:
         return self.track_channel_map.get(track_id, [0])
