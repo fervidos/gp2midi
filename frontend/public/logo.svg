@@ -1,0 +1,18 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Guitar Pick Shape -->
+  <path d="M256 480C256 480 448 300 448 160C448 80 380 32 256 32C132 32 64 80 64 160C64 300 256 480 256 480Z" fill="#0f172a" stroke="#38bdf8" stroke-width="20"/>
+  
+  <!-- MIDI 5-Pin DIN Design (Abstract) -->
+  <circle cx="256" cy="200" r="16" fill="#38bdf8"/> <!-- Center Pin -->
+  <circle cx="200" cy="180" r="16" fill="#38bdf8"/> <!-- Left Pin -->
+  <circle cx="312" cy="180" r="16" fill="#38bdf8"/> <!-- Right Pin -->
+  <circle cx="160" cy="140" r="16" fill="#38bdf8"/> <!-- Far Left Pin -->
+  <circle cx="352" cy="140" r="16" fill="#38bdf8"/> <!-- Far Right Pin -->
+  
+  <!-- Circuit Lines -->
+  <path d="M256 200V350" stroke="#38bdf8" stroke-width="12" stroke-linecap="round"/>
+  <path d="M256 350L192 400" stroke="#38bdf8" stroke-width="12" stroke-linecap="round"/>
+  <path d="M256 350L320 400" stroke="#38bdf8" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- Glow Effect (Filter def usually, but simple stroke works for flat) -->
+</svg>

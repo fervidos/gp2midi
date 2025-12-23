@@ -1,36 +1,63 @@
 # GP2MIDI Pro
 
-[![GP2MIDI Pro](https://image.thum.io/get/width/1200/crop/600/https://gp2midi.vercel.app/)](https://gp2midi.vercel.app/)
+<div align="center">
+  <img src="frontend/public/logo.svg" width="120" height="120" alt="GP2MIDI Pro Logo" />
+  <h1>GP2MIDI Pro</h1>
+  <p><strong>Studio-Grade Guitar Pro to MIDI Converter</strong></p>
+  
+  <a href="https://gp2midi.vercel.app/">
+    <img src="https://img.shields.io/badge/Live_Demo-Visit_Site-38bdf8?style=for-the-badge&logo=vercel" alt="Live Demo" />
+  </a>
+  
+  <p>
+    <a href="#-key-features">Key Features</a> •
+    <a href="#-getting-started">Getting Started</a> •
+    <a href="#-api-reference">API Reference</a> •
+    <a href="#-contributing">Contributing</a>
+  </p>
+  
+  ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+  ![Python](https://img.shields.io/badge/python-3.9+-blue.svg?style=flat-square)
+  ![React](https://img.shields.io/badge/frontend-React-61dafb.svg?style=flat-square)
+  ![Status](https://img.shields.io/badge/status-stable-green.svg?style=flat-square)
+</div>
 
-> **Studio-Grade Guitar Pro to MIDI Converter**
->
-> effortlessly convert your `.gp` files into high-fidelity MIDI sequences ready for your DAW.
+<br />
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
-![React](https://img.shields.io/badge/frontend-React-61dafb.svg)
-![Status](https://img.shields.io/badge/status-stable-green.svg)
-
-## 🎮 [Try it out Live](https://gp2midi.vercel.app/)
+> **GP2MIDI Pro** is a modern, full-stack application designed to bridge the gap between tablature and production. Unlike basic converters, it preserves the nuance of your guitar tracks—handling bends, slides, and multiple voices with a proprietary "High Fidelity" mode that maps strings to separate MIDI channels for maximum expressiveness (MPE-ready).
 
 ---
 
-**GP2MIDI Pro** is a modern, full-stack application designed to bridge the gap between tablature and production. Unlike basic converters, GP2MIDI preserves the nuance of your guitar tracks—handling bends, slides, and multiple voices with a proprietary "High Fidelity" mode that maps strings to separate MIDI channels for maximum expressiveness (MPE-ready).
-
 ## ✨ Key Features
 
-- **🚀 Universal Format Support**: Reads everything from legacy Guitar Pro 3/4/5 (`.gp3`, `.gp4`, `.gp5`) to modern XML-based formats (`.gpx`, `.gp`).
-- **🎛️ High Fidelity Mode**: Intelligent channel allocation separates guitar strings onto distinct MIDI channels, preserving polyphonic bends and articulations.
-- **⚡ Modern Web Interface**: specialized Drag-and-Drop UI built with React, featuring real-time conversion status.
-- **🔌 REST API**: Robust FastAPI backend for integrating conversion logic into larger pipelines.
-- **🛠️ Developer Ready**: Fully typed codebase with linting (Ruff/ESLint), tests (Pytest), and modular architecture.
+- **🚀 Universal Format Support**
+  Reads everything from legacy **Guitar Pro 3/4/5** (`.gp3`, `.gp4`, `.gp5`) to modern XML-based formats (`.gpx`, `.gp`).
+
+- **🎛️ High Fidelity Mode (MPE Style)**
+  Intelligent channel allocation separates guitar strings onto distinct MIDI channels (1-6). This allows for **independent pitch bends** on each string, essentially turning your MIDI output into an MPE (MIDI Polyphonic Expression) controller. Perfect for unison bends and complex articulations.
+
+- **🌌 Immersive UI**
+  A stunning, dark-mode Interface built with **React** & **Glassmorphism**. Features a dynamic starry background with parallax depth and shooting stars.
+
+- **⚡ Real-Time Processing**
+  Drag-and-Drop files for instant conversion using our high-performance Python parser.
+
+- **🔌 REST API**
+  Robust **FastAPI** backend for integrating conversion logic into larger pipelines or automation scripts.
+
+- **🛠️ Developer Ready**
+  Fully typed codebase with linting (Ruff/ESLint), tests (Pytest), and modular architecture.
+
+---
 
 ## 🏗️ Architecture
 
-The project is split into two main components:
+The project follows a modern monorepo structure:
 
-- **Backend (`/backend`)**: A Python FastAPI application that handles the complex parsing (Binary & XML) and MIDI generation.
-- **Frontend (`/frontend`)**: A React (Vite) application providing a polished user experience.
+- **Backend (`/backend`)**: A **Python FastAPI** application that handles the complex parsing (Binary & XML) and MIDI generation.
+- **Frontend (`/frontend`)**: A **React (Vite)** application providing the user interface.
+
+---
 
 ## 🚀 Getting Started
 
@@ -87,6 +114,8 @@ npm run dev
 ```
 *Access UI at: `http://localhost:5173`*
 
+---
+
 ## 🧪 Development & Testing
 
 We maintain high code quality standards. Run the following commands to verify your environment.
@@ -98,6 +127,8 @@ We maintain high code quality standards. Run the following commands to verify yo
 ### Frontend
 - **Linting**: `cd frontend && npm run lint`
 - **Formatting**: `cd frontend && npm run format`
+
+---
 
 ## 📚 API Reference
 
@@ -117,9 +148,11 @@ curl -X POST "http://localhost:8000/convert?high_fidelity=true" \
   --output mysong.mid
 ```
 
+---
+
 ## ☁️ Deployment (Vercel)
 
-The project is pre-configured for **Vercel** deployment.
+The project is pre-configured for **Vercel** deployment (Serverless Python + React).
 
 1.  Push your code to GitHub.
 2.  Import project in Vercel.
@@ -127,6 +160,8 @@ The project is pre-configured for **Vercel** deployment.
 4.  Deploy! 🚀
 
 The included `vercel.json` handles the routing between the Python backend (serverless) and the React frontend.
+
+---
 
 ## 🤝 Contributing
 
@@ -137,10 +172,14 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch.
 5. Open a Pull Request.
 
+---
+
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-*Made with ❤️ for musicians and coders.*
+<div align="center">
+  <p><i>Made with ❤️ by the GP2MIDI Team</i></p>
+</div>

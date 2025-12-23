@@ -1,0 +1,104 @@
+/* Star Background Styles */
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Small Stars */
+.stars {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: 174px 148px #FFF, 743px 259px #FFF, 1804px 572px #FFF, 1740px 1088px #FFF, 32px 13px #FFF, 1547px 1563px #FFF, 1969px 929px #FFF, 1084px 1018px #FFF, 1085px 1198px #FFF, 1656px 6px #FFF, 217px 1978px #FFF, 507px 117px #FFF, 341px 1775px #FFF, 1696px 1238px #FFF, 831px 544px #FFF;
+    animation: animStar 50s linear infinite;
+}
+
+.stars:after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: 174px 148px #FFF, 743px 259px #FFF, 1804px 572px #FFF, 1740px 1088px #FFF, 32px 13px #FFF, 1547px 1563px #FFF, 1969px 929px #FFF, 1084px 1018px #FFF, 1085px 1198px #FFF, 1656px 6px #FFF, 217px 1978px #FFF, 507px 117px #FFF, 341px 1775px #FFF, 1696px 1238px #FFF, 831px 544px #FFF;
+}
+
+/* Medium Stars */
+.stars2 {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: 474px 548px #FFF, 1743px 1259px #FFF, 1804px 57px #FFF, 1740px 188px #FFF, 32px 1313px #FFF, 1547px 563px #FFF, 1969px 1929px #FFF, 84px 1018px #FFF, 1085px 198px #FFF;
+    animation: animStar 100s linear infinite;
+}
+
+.stars2:after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: 474px 548px #FFF, 1743px 1259px #FFF, 1804px 57px #FFF, 1740px 188px #FFF, 32px 1313px #FFF, 1547px 563px #FFF, 1969px 1929px #FFF, 84px 1018px #FFF, 1085px 198px #FFF;
+}
+
+/* Shooting Star */
+.shooting-star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 0 0 0 8px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 1);
+    animation: animateTwinkle 3s linear infinite;
+    opacity: 0;
+}
+
+.shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(90deg, #fff, transparent);
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-2000px);
+    }
+}
+
+@keyframes animateTwinkle {
+    0% {
+        transform: rotate(315deg) translateX(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    20% {
+        transform: rotate(315deg) translateX(-1000px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: rotate(315deg) translateX(-1000px);
+        opacity: 0;
+    }
+}

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Music, AlertTriangle, Download, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Music, AlertTriangle, Download, RefreshCw, CheckCircle2, Info, X } from 'lucide-react';
 import DropZone from './components/DropZone';
+import StarBackground from './components/StarBackground';
 import './App.css';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   const [convertedUrl, setConvertedUrl] = useState(null);
   const [downloadName, setDownloadName] = useState("");
   const [highFi, setHighFi] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
 
   const handleFileSelected = (selectedFile) => {
     setError(null);
@@ -64,7 +66,9 @@ function App() {
 
   return (
     <div className="container">
+      <StarBackground />
       <header className="header">
+        <img src="/logo.svg" alt="GP2MIDI Logo" className="logo" />
         <h1>GP2MIDI Pro</h1>
         <p>Studio-Grade Guitar Pro to MIDI Converter</p>
       </header>
@@ -79,7 +83,13 @@ function App() {
           />
           <span className="switch-label">
             High Fidelity Mode
-            <span className="tooltip">Uses split channels for accurate bends (MPE style)</span>
+            <button
+              className="info-btn"
+              onClick={(e) => { e.preventDefault(); setShowInfo(true); }}
+              title="What is High Fidelity Mode?"
+            >
+              <Info size={16} />
+            </button>
           </span>
         </label>
       </div>
@@ -126,6 +136,40 @@ function App() {
       <footer className="footer">
         <Music size={16} /> Powered by GP2MIDI Engine
       </footer>
+
+      {showInfo && (
+        <div className="modal-overlay" onClick={() => setShowInfo(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>High Fidelity Mode (MPE Style)</h3>
+              <button className="close-modal-btn" onClick={() => setShowInfo(false)}>
+                <X size={20} />
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="feature-block">
+                <h4><CheckCircle2 size={16} className="icon-on" /> What stays ON</h4>
+                <p>
+                  Allocates a <strong>separate MIDI channel</strong> for each guitar string (Channels 1-6).
+                  This allows for <strong>independent pitch bends</strong> per note.
+                </p>
+                <p className="highlight">
+                  Essential for songs where you bend one string while letting another ring (e.g., Unison Bends).
+                </p>
+              </div>
+
+              <div className="feature-block warning">
+                <h4><AlertTriangle size={16} className="icon-warn" /> Considerations</h4>
+                <ul>
+                  <li>Uses <strong>6 channels</strong> per guitar track.</li>
+                  <li>Can clutter basic MIDI editors.</li>
+                  <li>Requires a synth/sampler that supports multi-channel input (Omnisphere, Kontakt, etc.).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
