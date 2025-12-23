@@ -11,6 +11,9 @@ from backend.models.song_model import (
     NoteType,
     Song,
     Track,
+    BendPoint,
+    EffectType,
+    NoteEffect,
 )
 
 
@@ -306,7 +309,36 @@ class XmlParser(GPParser):
         
         # Detect bends (basic)
         effects = []
-        # TODO: Detect bends from GPX properties if available
+        if "Bends" in props:
+            points_elem = props["Bends"]
+            # Usually nested in <Points> or just under the property
+            # We'll search recursively for "Point" to be safe
+            bend_points_xml = points_elem.findall(f".//{self.ns}Point")
+            if bend_points_xml:
+                # We have bends
+                bend_effect = NoteEffect(type=EffectType.BEND)
+                for pt in bend_points_xml:
+                    pos = 0
+                    val = 0
+                    # Position
+                    pos_node = pt.find(f"{self.ns}Position")
+                    if pos_node is not None:
+                        try:
+                            pos = int(pos_node.text)
+                        except (ValueError, TypeError):
+                            pass
+                    
+                    # Value
+                    val_node = pt.find(f"{self.ns}Value")
+                    if val_node is not None:
+                        try:
+                             val = int(val_node.text)
+                        except (ValueError, TypeError):
+                            pass
+                    
+                    bend_effect.bend_points.append(BendPoint(position=pos, value=val))
+                
+                effects.append(bend_effect)
         
         note = Note(
             string=string,

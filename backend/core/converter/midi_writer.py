@@ -109,12 +109,82 @@ class MidiWriter:
                         "note": midi_note, "velocity": 0, "channel": channel
                     })
 
+                    
                     # Handle Bends
-                    # TODO: Real interpolation from GPX points. 
-                    # For now just checking if BEND effect exists and adding a dummy slide if needed?
-                    # Actually without points data we can't do much.
-                    # But if we had points, we would generate pitchwheel events here.
-                    pass 
+                    for effect in note.effects:
+                        if effect.type == EffectType.BEND and effect.bend_points:
+                            points = sorted(effect.bend_points, key=lambda p: p.position)
+                            
+                            # Constants
+                            BEND_RANGE_SEMITONES = 12
+                            GP_VALUE_TO_SEMITONES = 1.0 / 50.0 # 100 = 2 semitones
+                            CENTER_PITCH = 0
+                            MAX_PITCH = 8191
+                            MIN_PITCH = -8192
+                            
+                            def val_to_pitch(gp_val):
+                                semitones = gp_val * GP_VALUE_TO_SEMITONES
+                                # Scale to -8192..+8191 range based on bend range
+                                # unit = 8192 / BEND_RANGE_SEMITONES
+                                offset = (semitones / BEND_RANGE_SEMITONES) * 8192
+                                pitch = int(CENTER_PITCH + offset)
+                                return max(MIN_PITCH, min(MAX_PITCH, pitch))
+                            
+                            # Generate Points
+                            # We assume points positions are 0-100 where 100 = note duration?
+                            # Or strict GP ticks? Let's assume 0-100 percentage for now as it's common.
+                            # If positions are large (>100), treat as absolute ticks relative to note start?
+                            # Standard GPX usually uses 0-100 for Position.
+                            
+                            # Interpolation
+                            # We will generate a point every X ticks
+                            resolution_ticks = 30 
+                            
+                            if len(points) == 1:
+                                # Constant bend?
+                                ev_time = start_abs + int(points[0].position / 100.0 * beat.duration)
+                                pitch = val_to_pitch(points[0].value)
+                                events.append({
+                                    "time": ev_time, "type": "pitchwheel", 
+                                    "pitch": pitch, "channel": channel
+                                })
+                            else:
+                                for i in range(len(points) - 1):
+                                    p1 = points[i]
+                                    p2 = points[i+1]
+                                    
+                                    t1_rel = int(p1.position / 100.0 * beat.duration)
+                                    t2_rel = int(p2.position / 100.0 * beat.duration)
+                                    
+                                    val1 = p1.value
+                                    val2 = p2.value
+                                    
+                                    duration = t2_rel - t1_rel
+                                    if duration <= 0:
+                                        # Instant jump
+                                        events.append({
+                                            "time": start_abs + t1_rel, "type": "pitchwheel",
+                                            "pitch": val_to_pitch(val1), "channel": channel
+                                        })
+                                        continue
+                                        
+                                    # Interpolate
+                                    steps = max(1, int(duration / resolution_ticks))
+                                    for s in range(steps + 1):
+                                        alpha = s / float(steps)
+                                        cur_time_rel = t1_rel + int(duration * alpha)
+                                        cur_val = val1 + (val2 - val1) * alpha
+                                        
+                                        events.append({
+                                            "time": start_abs + cur_time_rel, "type": "pitchwheel",
+                                            "pitch": val_to_pitch(cur_val), "channel": channel
+                                        })
+
+                            # Reset Pitch Bend at end of note
+                            events.append({
+                                "time": end_abs, "type": "pitchwheel", 
+                                "pitch": CENTER_PITCH, "channel": channel
+                            }) 
 
         # Sort events by time
         events.sort(key=lambda x: x["time"])
@@ -124,15 +194,25 @@ class MidiWriter:
         for ev in events:
             dt = ev["time"] - last_time
             if dt < 0: dt = 0
-            midi_track.append(
-                mido.Message(
-                    ev["type"],
-                    note=ev["note"],
-                    velocity=ev["velocity"],
-                    channel=ev["channel"],
-                    time=dt,
+            if ev["type"] == "pitchwheel":
+                 midi_track.append(
+                    mido.Message(
+                        "pitchwheel",
+                        pitch=ev["pitch"],
+                        channel=ev["channel"],
+                        time=dt,
+                    )
                 )
-            )
+            else:
+                midi_track.append(
+                    mido.Message(
+                        ev["type"],
+                        note=ev["note"],
+                        velocity=ev["velocity"],
+                        channel=ev["channel"],
+                        time=dt,
+                    )
+                )
             last_time = ev["time"]
             
         midi_track.append(mido.MetaMessage("end_of_track", time=0))

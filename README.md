@@ -33,6 +33,7 @@ The engine now supports advanced MIDI features to unlock thousands of sounds:
 |:---|:---|
 | **Bank Select Support** | Automatically parses and emits `CC0` (Bank MSB) and `CC32` (Bank LSB) messages, unlocking access to GM2, GS, and XG instrument banks. |
 | **Smart Channel Allocation** | Intelligently manages MIDI channels. In **High Fidelity** mode, it uses 6 channels per track for MPE-style bends. If channels run low, it gracefully degrades to Standard mode. |
+| **Advanced Pitch Bends** | Parses pitch bends from GP files and generates smooth, linearly interpolated MIDI pitch wheel events. Supports semitone-level precision. |
 
 ## ✨ Key Features
 
