@@ -1,19 +1,38 @@
-# gp2midi V2.1
+<div align="center">
 
-A professional, studio-grade tool to convert Guitar Pro files (`.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp`) into high-fidelity MIDI.
+  <img src="frontend/public/logo.svg" alt="GP2MIDI Logo" width="120" height="120" />
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-2.1-green.svg)
+  # GP2MIDI V2.1
+
+  **Studio-Grade Guitar Pro to MIDI Converter**
+  
+  Converts `.gp3`, `.gp4`, `.gp5`, `.gpx`, and `.gp` files into high-fidelity MIDI.
+
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+  [![Version](https://img.shields.io/badge/version-2.1-green.svg?style=flat-square)](https://github.com/yourusername/gp2midi)
+  [![Build Status](https://img.shields.io/badge/build-passing-success.svg?style=flat-square)](https://github.com/yourusername/gp2midi/actions)
+  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fgp2midi)
+
+  [**View Live Demo**](https://gp2midi-app.vercel.app) • [**Report Bug**](https://github.com/yourusername/gp2midi/issues) • [**Request Feature**](https://github.com/yourusername/gp2midi/issues)
+
+</div>
+
+<br />
+
+## 🚀 Overview
+
+**gp2midi** is a powerful engine designed for musicians and producers who need to extract performance data from Guitar Pro files with precision. Unlike simple converters, gp2midi preserves the nuance of guitar performance using advanced MIDI features.
 
 ## 🌟 New in V2.1: Instrument Expansion
 
 The engine now supports advanced MIDI features to unlock thousands of sounds:
-- **Bank Select Support**: Automatically parses and emits `CC0` (Bank MSB) and `CC32` (Bank LSB) messages, allowing access to GM2, GS, and XG instrument banks.
-- **Smart Channel Allocation**: 
-  - **High Fidelity Mode**: Uses 6 MIDI channels per guitar track for independent string bending (MPE-style).
-  - **Safe Fallback**: If the 16-channel limit is reached, it gracefully degrades to "Standard Mode" (1 channel per track) to prevent errors.
 
-## ✨ Features
+| Feature | Description |
+|:---|:---|
+| **Bank Select Support** | Automatically parses and emits `CC0` (Bank MSB) and `CC32` (Bank LSB) messages, unlocking access to GM2, GS, and XG instrument banks. |
+| **Smart Channel Allocation** | Intelligently manages MIDI channels. In **High Fidelity** mode, it uses 6 channels per track for MPE-style bends. If channels run low, it gracefully degrades to Standard mode. |
+
+## ✨ Key Features
 
 - **Format Support**: Handles legacy (GP3-GP5) and modern (GPX, GP) files.
 - **High Fidelity Conversion**:
@@ -26,13 +45,19 @@ The engine now supports advanced MIDI features to unlock thousands of sounds:
   - Real-time conversion feedback.
 - **Modular Backend**: Built with FastAPI and a layered architecture for easy extension.
 
+## 🛠 Usage
+
+1. **Open the App**: Navigate to the web interface.
+2. **Select Mode**: Toggle **High Fidelity Mode** if you want independent string control (requires a compatible synth/DAW like Omnisphere or Kontakt).
+3. **Drag & Drop**: Drop your Guitar Pro file onto the zone.
+4. **Download**: The MIDI file is generated instantly.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - Python 3.8+
 - Node.js 16+
-- Git
 
 ### Installation
 
@@ -57,13 +82,6 @@ The engine now supports advanced MIDI features to unlock thousands of sounds:
    npm run dev
    ```
    Access the app at `http://localhost:5173`.
-
-## 🛠 Usage
-
-1. Open the web interface.
-2. Toggle **High Fidelity Mode** if you want independent string control (requires a compatible synth/DAW).
-3. Drag & Drop your Guitar Pro file.
-4. Download the generated MIDI file immediately.
 
 ## 🧩 Architecture
 
