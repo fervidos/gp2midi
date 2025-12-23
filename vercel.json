@@ -1,7 +1,7 @@
 {
     "rewrites": [
         {
-            "source": "/convert",
+            "source": "/api/(.*)",
             "destination": "/api/index.py"
         },
         {
