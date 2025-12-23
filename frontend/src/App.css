@@ -72,6 +72,7 @@
   margin: 0;
   background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.05em;
   filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.15));
@@ -80,9 +81,14 @@
 .pro-badge {
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 0.8em;
-  vertical-align: super;
+  font-size: 0.5em;
+  vertical-align: middle;
+  margin-left: 8px;
+  position: relative;
+  top: -15px;
+  letter-spacing: 0.05em;
   text-shadow: 0 0 20px var(--accent-glow);
 }
 

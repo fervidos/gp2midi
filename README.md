@@ -11,7 +11,9 @@
   [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
   [![Version](https://img.shields.io/badge/version-2.1-green.svg?style=flat-square)](https://github.com/fervidos/gp2midi)
   [![Build Status](https://img.shields.io/badge/build-passing-success.svg?style=flat-square)](https://github.com/fervidos/gp2midi/actions)
-  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffervidos%2Fgp2midi)
+  [![Issues](https://img.shields.io/github/issues/fervidos/gp2midi?style=flat-square)](https://github.com/fervidos/gp2midi/issues)
+  [![Pull Requests](https://img.shields.io/github/issues-pr/fervidos/gp2midi?style=flat-square)](https://github.com/fervidos/gp2midi/pulls)
+  [![Deploy with Vercel](https://img.shields.io/badge/deploy-vercel-black?style=flat-square&logo=vercel)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffervidos%2Fgp2midi)
 
   [**View Live Demo**](https://gp2midi.vercel.app/) • [**Report Bug**](https://github.com/fervidos/gp2midi/issues) • [**Request Feature**](https://github.com/fervidos/gp2midi/issues)
 
