@@ -2,11 +2,11 @@ import os
 import sys
 
 # Add current directory to path so we can import modules
-# Add backend directory to path so we can import modules
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+# Add project root directory to path so we can import 'backend' package
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 
-from converter.midi_writer import MidiWriter
-from models.song_model import (
+from backend.converter.midi_writer import MidiWriter
+from backend.models.song_model import (
     Beat,
     EffectType,
     Measure,

@@ -1,7 +1,7 @@
 import mido
 
-from converter.channel_manager import ChannelManager
-from models.song_model import EffectType, NoteType, Song, Track
+from backend.converter.channel_manager import ChannelManager
+from backend.models.song_model import EffectType, NoteType, Song, Track
 
 
 class MidiWriter:

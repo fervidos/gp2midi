@@ -1,10 +1,10 @@
 import io
 import xml.etree.ElementTree as ET
 import zipfile
-from parser.gp_parser import GPParser
+from backend.parser.gp_parser import GPParser
 from typing import Dict
 
-from models.song_model import (
+from backend.models.song_model import (
     Beat,
     Measure,
     Note,

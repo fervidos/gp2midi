@@ -1,8 +1,8 @@
-from parser.gp_parser import GPParser
+from backend.parser.gp_parser import GPParser
 
 import guitarpro
 
-from models.song_model import (
+from backend.models.song_model import (
     Beat,
     EffectType,
     Measure,

@@ -3,14 +3,14 @@ import logging
 import os
 import tempfile
 import traceback
-from parser.binary_parser import BinaryParser
-from parser.xml_parser import XmlParser
+from backend.parser.binary_parser import BinaryParser
+from backend.parser.xml_parser import XmlParser
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
-from converter.midi_writer import MidiWriter
+from backend.converter.midi_writer import MidiWriter
 
 # Configure Logging
 logging.basicConfig(
