@@ -32,7 +32,9 @@
 
 .switch-label {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -282,10 +284,22 @@
   font-weight: 500;
 }
 
-.icon-on { color: var(--success); }
-.icon-warn { color: var(--danger); }
+.icon-on {
+  color: var(--success);
+}
+
+.icon-warn {
+  color: var(--danger);
+}
 
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
