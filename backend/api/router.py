@@ -1,6 +1,7 @@
 import io
 import logging
 import traceback
+from urllib.parse import quote
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from fastapi.responses import StreamingResponse
@@ -53,11 +54,14 @@ async def convert_file(file: UploadFile = File(...), high_fidelity: bool = True)
         midi_content = midi_buffer.getvalue()
         logger.info(f"MIDI generated in memory. Size: {len(midi_content)} bytes")
 
+        # RFC 5987 compliant encoding
+        encoded_filename = quote(f"{file.filename}.mid")
+
         return StreamingResponse(
             io.BytesIO(midi_content),
             media_type="audio/midi",
             headers={
-                "Content-Disposition": f"attachment; filename={file.filename}.mid"
+                "Content-Disposition": f"attachment; filename*=UTF-8''{encoded_filename}"
             },
         )
 
