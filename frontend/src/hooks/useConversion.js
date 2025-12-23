@@ -8,7 +8,34 @@ export const useConversion = () => {
     const [downloadName, setDownloadName] = useState("");
     const [highFi, setHighFi] = useState(true);
 
-    const convertFile = async (currentFile) => {
+    const [analysisData, setAnalysisData] = useState(null);
+    const [currentFile, setCurrentFile] = useState(null);
+
+    const analyzeFile = async (file) => {
+        setIsLoading(true);
+        setError(null);
+        setAnalysisData(null);
+        setCurrentFile(file);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await axios.post('/api/analyze', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            setAnalysisData(response.data);
+        } catch (err) {
+            console.error(err);
+            setError("Analysis failed. Please check the file and try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const convertFile = async (selectedTracks = []) => {
+        if (!currentFile) return;
+
         setIsLoading(true);
         setConvertedUrl(null);
         setError(null);
@@ -16,18 +43,25 @@ export const useConversion = () => {
         const formData = new FormData();
         formData.append('file', currentFile);
 
+        let url = `/api/convert?high_fidelity=${highFi}`;
+        if (selectedTracks.length > 0) {
+            url += `&selected_tracks=${selectedTracks.join(',')}`;
+        }
+
         try {
-            // Use config from Vite proxy or relative path
-            const response = await axios.post(`/api/convert?high_fidelity=${highFi}`, formData, {
+            const response = await axios.post(url, formData, {
                 responseType: 'blob',
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            setConvertedUrl(url);
+            const resultUrl = window.URL.createObjectURL(new Blob([response.data]));
+            setConvertedUrl(resultUrl);
             setDownloadName(currentFile.name.replace(/\.[^/.]+$/, "") + ".mid");
+
+            // Clear analysis data after successful conversion
+            setAnalysisData(null);
 
         } catch (err) {
             console.error(err);
@@ -40,7 +74,7 @@ export const useConversion = () => {
                     if (json.detail && json.detail.message) {
                         errorMessage = `Server Error: ${json.detail.message}`;
                     } else if (json.detail) {
-                        errorMessage = json.detail; // Flattened detail string
+                        errorMessage = json.detail;
                     }
                 } catch (e) {
                     console.error("Failed to parse error blob:", e);
@@ -56,6 +90,8 @@ export const useConversion = () => {
         setConvertedUrl(null);
         setError(null);
         setDownloadName("");
+        setAnalysisData(null);
+        setCurrentFile(null);
     };
 
     return {
@@ -64,9 +100,12 @@ export const useConversion = () => {
         convertedUrl,
         downloadName,
         highFi,
+        analysisData,
         setHighFi,
+        analyzeFile,
         convertFile,
         reset,
-        setError
+        setError,
+        setAnalysisData
     };
 };

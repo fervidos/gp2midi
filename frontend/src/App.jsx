@@ -4,6 +4,7 @@ import { AlertTriangle, RefreshCw } from 'lucide-react';
 import Header from './components/Header';
 import DropZone from './components/Conversion/DropZone';
 import ConversionControls from './components/Conversion/ConversionControls';
+import TrackSelector from './components/Conversion/TrackSelector';
 import ResultCard from './components/Conversion/ResultCard';
 import InfoModal from './components/Modals/InfoModal';
 import StarBackground from './components/StarBackground';
@@ -14,7 +15,7 @@ import './App.css';
 function App() {
   const {
     isLoading, error, convertedUrl, downloadName,
-    highFi, setHighFi, convertFile, reset, setError
+    highFi, setHighFi, analyzeFile, convertFile, reset, setError, analysisData, setAnalysisData
   } = useConversion();
 
   const [showInfo, setShowInfo] = useState(false);
@@ -26,7 +27,7 @@ function App() {
       <Header />
 
       <div className="main-layout">
-        {!convertedUrl && (
+        {!convertedUrl && !analysisData && (
           <ConversionControls
             highFi={highFi}
             setHighFi={setHighFi}
@@ -46,12 +47,23 @@ function App() {
 
           {!convertedUrl ? (
             <div className="upload-section">
-              <DropZone onFileSelected={convertFile} isLoading={isLoading} />
-              {isLoading && (
-                <div className="loading-indicator">
-                  <RefreshCw className="spin" size={32} />
-                  <p>Processing...</p>
-                </div>
+              {!analysisData ? (
+                <>
+                  <DropZone onFileSelected={analyzeFile} isLoading={isLoading} />
+                  {isLoading && (
+                    <div className="loading-indicator">
+                      <RefreshCw className="spin" size={32} />
+                      <p>Processing...</p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <TrackSelector
+                  tracks={analysisData.tracks}
+                  onConfirm={convertFile}
+                  onCancel={() => setAnalysisData(null)}
+                  isLoading={isLoading}
+                />
               )}
             </div>
           ) : (

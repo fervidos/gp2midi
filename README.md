@@ -34,6 +34,7 @@ The engine now supports advanced MIDI features to unlock thousands of sounds:
 | **Bank Select Support** | Automatically parses and emits `CC0` (Bank MSB) and `CC32` (Bank LSB) messages, unlocking access to GM2, GS, and XG instrument banks. |
 | **Smart Channel Allocation** | Intelligently manages MIDI channels. In **High Fidelity** mode, it uses 6 channels per track for MPE-style bends. If channels run low, it gracefully degrades to Standard mode. |
 | **Advanced Pitch Bends** | Parses pitch bends from GP files and generates smooth, linearly interpolated MIDI pitch wheel events. Supports semitone-level precision. |
+| **Selective Track Conversion** | *New in V2.1!* Choose exactly which instruments to include in the output MIDI. Perfect for extracting just the drums or backing tracks. |
 
 ## ✨ Key Features
 
@@ -42,6 +43,7 @@ The engine now supports advanced MIDI features to unlock thousands of sounds:
   - Independent pitch bends per string.
   - Accurate timing and durations.
   - Percussion track handling (automatically mapped to Channel 10).
+  - **Instrument Selection**: Interactive track checklist before conversion.
 - **Premium UI**:
   - "Midnight/Aurora" dark mode design.
   - Drag-and-drop interface.
@@ -53,7 +55,8 @@ The engine now supports advanced MIDI features to unlock thousands of sounds:
 1. **Open the App**: Navigate to the web interface.
 2. **Select Mode**: Toggle **High Fidelity Mode** if you want independent string control (requires a compatible synth/DAW like Omnisphere or Kontakt).
 3. **Drag & Drop**: Drop your Guitar Pro file onto the zone.
-4. **Download**: The MIDI file is generated instantly.
+4. **Select Instruments**: A checklist will appear showing all tracks found in the file. Uncheck any you don't want.
+5. **Convert**: Click to generate and download percision MIDI.
 
 ## 🚀 Getting Started
 
