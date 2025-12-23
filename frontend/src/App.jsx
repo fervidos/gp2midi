@@ -37,7 +37,21 @@ function App() {
 
     } catch (err) {
       console.error(err);
-      setError("Conversion failed. Please check the file and try again.");
+      let errorMessage = "Conversion failed. Please check the file and try again.";
+
+      if (err.response && err.response.data instanceof Blob) {
+        try {
+          const text = await err.response.data.text();
+          const json = JSON.parse(text);
+          console.error("Backend Error Trace:", json.trace);
+          if (json.message) {
+            errorMessage = `Server Error: ${json.message}`;
+          }
+        } catch (e) {
+          console.error("Failed to parse error blob:", e);
+        }
+      }
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
