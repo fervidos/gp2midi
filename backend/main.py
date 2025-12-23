@@ -89,6 +89,7 @@ async def convert_file(file: UploadFile = File(...), high_fidelity: bool = True)
     except HTTPException as he:
         raise he
     except Exception as e:
+        error_trace = traceback.format_exc()
         logger.error(f"Error during conversion: {e}")
-        logger.error(traceback.format_exc())
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(error_trace)
+        raise HTTPException(status_code=500, detail={"message": str(e), "trace": error_trace})

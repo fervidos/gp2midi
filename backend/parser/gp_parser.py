@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from models.song_model import Song
+from backend.models.song_model import Song
 
 
 class GPParser(ABC):
